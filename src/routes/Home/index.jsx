@@ -60,7 +60,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="main-wrapper">
-        <Header />
+        <Header style={{background: '#285580'}} />
         <Banner />
         <Page1 />
         <Page4 />
