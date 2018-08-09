@@ -55,7 +55,7 @@ class UserLayout extends React.PureComponent {
                   <span className={styles.title}>Ant Design</span>
                 </Link>
               </div>
-              <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+              <div className={styles.desc}>萃芸信息科技</div>
             </div>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (
