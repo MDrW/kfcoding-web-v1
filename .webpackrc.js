@@ -6,8 +6,18 @@ export default {
   env: {
     development: {
       extraBabelPlugins: ['dva-hmr'],
+      proxy: {
+        '/api' : {
+          target: "http://localhost:8081",
+          changeOrigin: true,
+          pathRewrite: {"^/api" : ""}
+        }
+      }
     },
   },
+  production: {
+
+  }
   externals: {
     '@antv/data-set': 'DataSet',
     bizcharts: 'BizCharts',
