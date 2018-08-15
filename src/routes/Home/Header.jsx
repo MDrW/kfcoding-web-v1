@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, Button } from 'antd';
-import { currentUser } from '../../services/users';
 import { openWindow } from '../../utils/openWindow';
 
 const { Header } = Layout;

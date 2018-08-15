@@ -3,9 +3,8 @@ import { Button } from 'antd';
 import TweenOne from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
 import ScrollParallax from 'rc-scroll-anim/lib/ScrollParallax';
-import { currentUser } from "../../services/users";
 import { openWindow } from "../../utils/openWindow";
-import pic from '../../assets/pic.png';
+import pic from '../../assets/pic.png'
 
 const loop = {
   duration: 3000,

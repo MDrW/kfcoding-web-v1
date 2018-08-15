@@ -1,5 +1,4 @@
 import React from 'react';
-import { getAllKongfu } from '../../services/kongfu';
 import { Link } from 'react-router-dom';
 import Book from '../../components/Book/Book';
 
@@ -18,10 +17,7 @@ export default class Page1 extends React.PureComponent {
   }
 
   componentDidMount() {
-    getAllKongfu().then(res => {
-      console.log(res)
-      this.setState({ kongfus: res.result.kongfus });
-    });
+
   }
 
   render() {
