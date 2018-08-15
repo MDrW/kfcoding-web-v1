@@ -74,17 +74,22 @@ export default class GlobalHeader extends PureComponent {
     const noticeData = this.getNoticeData();
     return (
       <div className={styles.header}>
-        {isMobile && [
-          <Link to="/" className={styles.logo} key="logo">
-            <img src={logo} alt="logo" width="32"/>
-          </Link>,
-          <Divider type="vertical" key="line"/>,
-        ]}
-        <span style={{ color: '#fff', fontSize: '24px' }}>
-          <a href="/index" style={{ color: '#fff' }}>
-            <img src="//static.cloudwarehub.com/logo-min.png?x-oss-process=style/logo" style={{ width: '80px' }} /> 功夫编程
-          </a>
-        </span>
+        <div className={styles.logo}>
+          <Link to="/">
+            <img src="//static.cloudwarehub.com/logo-min.png?x-oss-process=style/logo" />
+            功夫编程
+          </Link>
+        </div>
+        <Menu
+          // theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['']}
+          style={{lineHeight: '64px', float: 'left'}}
+        >
+          <Menu.Item key="1"><Link to='/library'>功夫图书馆</Link></Menu.Item>
+          <Menu.Item key="2"><Link to='/courses'>高校版</Link></Menu.Item>
+        </Menu>
+
         <div className={styles.right}>
           <HeaderSearch
             className={`${styles.action} ${styles.search}`}
