@@ -52,24 +52,20 @@ const dynamicWrapper = (app, models, component) => {
     },
   });
 };
-//
-// function getFlatMenuData(menus) {
-//   let keys = {};
-//   menus.forEach(item => {
-//     if (item.children) {
-//       keys[item.path] = { ...item };
-//       keys = { ...keys, ...getFlatMenuData(item.children) };
-//     } else {
-//       keys[item.path] = { ...item };
-//     }
-//   });
-//   return keys;
-// }
 
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
       component: dynamicWrapper(app, [], () => import('../routes/Home/index')),
+    },
+    '/user': {
+      component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
+    },
+    '/user/login': {
+      component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
+    },
+    '/user/register': {
+      component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
     },
   };
 

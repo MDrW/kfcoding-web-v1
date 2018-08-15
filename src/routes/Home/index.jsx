@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header';
+import GlobalHeader from '../../components/GlobalHeader';
 import Banner from './Banner';
 import Page1 from './Page1';
 import Page2 from './Page2';
@@ -60,7 +60,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="main-wrapper">
-        <Header style={{background: '#285580'}} />
+        <GlobalHeader style={{background: '#285580'}} />
         <Banner />
         <Page1 />
         <Page4 />

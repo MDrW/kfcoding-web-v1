@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Link, Redirect, Switch, Route } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
+import GlobalHeader from '../components/GlobalHeader';
 import GlobalFooter from '../components/GlobalFooter';
 import styles from './UserLayout.less';
 import logo from '../assets/logo.svg';
@@ -47,12 +48,13 @@ class UserLayout extends React.PureComponent {
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <div className={styles.container}>
+          <GlobalHeader />
           <div className={styles.content}>
             <div className={styles.top}>
               <div className={styles.header}>
                 <Link to="/">
                   <img alt="logo" className={styles.logo} src={logo} />
-                  <span className={styles.title}>Ant Design</span>
+                  <span className={styles.title}>进入功夫世界</span>
                 </Link>
               </div>
               <div className={styles.desc}>萃芸信息科技</div>
