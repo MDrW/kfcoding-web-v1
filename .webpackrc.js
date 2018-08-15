@@ -15,9 +15,6 @@ export default {
       }
     },
   },
-  production: {
-
-  }
   externals: {
     '@antv/data-set': 'DataSet',
     bizcharts: 'BizCharts',
