@@ -3,8 +3,8 @@ import { Button } from 'antd';
 import TweenOne from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
 import ScrollParallax from 'rc-scroll-anim/lib/ScrollParallax';
-import { openWindow } from "../../utils/openWindow";
 import pic from '../../assets/pic.png'
+import { thirdPartyLogin } from '../../utils/githubLogin';
 
 const loop = {
   duration: 3000,
@@ -13,24 +13,7 @@ const loop = {
 };
 
 class Banner extends React.PureComponent {
-  login = () => {
-  openWindow(
-    'https://github.com/login/oauth/authorize?client_id=1eb243e826a117b3e138&',
-    '登录',
-    600,
-    600
-  );
-  window.addEventListener('message', (m) => {
-    localStorage.setItem('token', m.data.token);
-    currentUser().then(res => {
-      console.log(res)
-      localStorage.setItem('uid', res.data.result.user.id);
-      localStorage.setItem('user', JSON.stringify(res.data.result.user));
-      window.location.replace('/home');
-
-    });
-  })
-}
+  
   render() {
     const isZhCN = 'zh-CN';
     return (
@@ -63,7 +46,7 @@ class Banner extends React.PureComponent {
              新一代交互式开发者学习社区
             </p>
             <div className="banner-btns" key="buttons">
-              <Button type='primary' icon='github' size='large' onClick={this.login}>立即体验</Button>
+              <Button type='primary' icon='github' size='large' onClick={thirdPartyLogin}>立即体验</Button>
             </div>
           </QueueAnim>
           {(

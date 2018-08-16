@@ -2,6 +2,8 @@ import { routerRedux } from 'dva/router';
 import { fakeAccountLogin } from '../services/api';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
+import { setLocalData, removeLocalData } from '../utils/localData';
+import { notification } from 'antd';
 
 export default {
   namespace: 'login',
@@ -18,7 +20,7 @@ export default {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.status === 200) {
         reloadAuthorized();
         yield put(routerRedux.push('/'));
       }
@@ -33,7 +35,7 @@ export default {
         window.history.replaceState(null, 'login', urlParams.href);
       } finally {
         yield put({
-          type: 'changeLoginStatus',
+          type: 'changeLogoutStatus',
           payload: {
             status: false,
             currentAuthority: 'guest',
@@ -47,7 +49,22 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      //setAuthority(payload.currentAuthority); // login成功，暂时没有返回currentAuthority
+      if (payload.status === 200){
+        setLocalData('token', payload.data); // 登录成功以后，保存token
+      }
+      else{
+        notification.error({message: '邮箱或密码错误'});
+      }
+      return {
+        ...state,
+        status: payload.status,
+        type: payload.type,
+      };
+    },
+    changeLogoutStatus(state, { payload }) {
+      setAuthority('guest'); // logout成功
+      removeLocalData('token'); // 登录退出以后，删除token
       return {
         ...state,
         status: payload.status,

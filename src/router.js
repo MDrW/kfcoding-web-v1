@@ -23,12 +23,6 @@ function RouterConfig({ history, app }) {
         <Switch>
           <Route path="/user" component={UserLayout} />
           <Route path="/" component={indexLayout} />
-          {/*<AuthorizedRoute*/}
-            {/*path="/"*/}
-            {/*render={props => <BasicLayout {...props} />}*/}
-            {/*authority={['admin', 'user']}*/}
-            {/*redirectPath="/user/login"*/}
-          {/*/>*/}
         </Switch>
       </ConnectedRouter>
     </LocaleProvider>

@@ -8,9 +8,9 @@ export default {
       extraBabelPlugins: ['dva-hmr'],
       proxy: {
         '/api' : {
-          target: "http://localhost:8081",
+          target: "http://192.168.1.104:8765",
           changeOrigin: true,
-          pathRewrite: {"^/api" : ""}
+          //pathRewrite: {"^/api" : ""}
         }
       }
     },
