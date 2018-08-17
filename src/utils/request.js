@@ -1,9 +1,6 @@
 import fetch from 'dva/fetch';
-import { notification } from 'antd';
-import { routerRedux } from 'dva/router';
-import store from '../index';
 
-const codeMessage = {
+/* const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
   202: '一个请求已经进入后台排队（异步任务）。',
@@ -19,8 +16,7 @@ const codeMessage = {
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
-};
-
+}; */
 
 /**
  * Requests a URL, returning a promise.
@@ -55,8 +51,7 @@ export default function request(url, options) {
     }
   }
   // TO DO
-  return fetch(url, newOptions)
-    .then(response => {
-      return response.json();
-    })
+  return fetch(url, newOptions).then(response => {
+    return response.json();
+  });
 }
