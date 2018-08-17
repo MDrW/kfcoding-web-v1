@@ -54,7 +54,7 @@ export default function request(url, options) {
       };
     }
   }
-
+  // TO DO
   return fetch(url, newOptions)
     .then(response => {
       return response.json();
