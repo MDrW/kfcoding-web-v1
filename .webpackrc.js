@@ -7,12 +7,11 @@ export default {
     development: {
       extraBabelPlugins: ['dva-hmr'],
       proxy: {
-        '/api' : {
-          target: "http://192.168.1.104:8765",
+        '/api': {
+          target: 'http://192.168.1.104:8765',
           changeOrigin: true,
-          //pathRewrite: {"^/api" : ""}
-        }
-      }
+        },
+      },
     },
   },
   externals: {
