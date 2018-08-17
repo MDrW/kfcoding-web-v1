@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip, Button } from 'antd';
+import { Menu, Icon, Tag, Tooltip, Button } from 'antd';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import { Link } from 'dva/router';
@@ -8,9 +8,9 @@ import HeaderSearch from '../HeaderSearch';
 import styles from './index.less';
 
 export default class GlobalHeader extends PureComponent {
-  componentWillUnmount() {
-    //this.triggerResizeEvent.cancel();
-  }
+  // componentWillUnmount() {
+  //   this.triggerResizeEvent.cancel();
+  // }
 
   getNoticeData() {
     const { notices } = this.props;
@@ -45,38 +45,30 @@ export default class GlobalHeader extends PureComponent {
   }
 
   render() {
-    const {
-      currentUser = {},
-      fetchingNotices,
-      isMobile,
-      logo,
-      onNoticeVisibleChange,
-      onMenuClick,
-      onNoticeClear,
-    } = this.props;
-    const menu = (
-      <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item disabled>
-          <Icon type="user"/>个人中心
-        </Menu.Item>
-        <Menu.Item disabled>
-          <Icon type="setting"/>设置
-        </Menu.Item>
-        <Menu.Item key="triggerError">
-          <Icon type="close-circle"/>触发报错
-        </Menu.Item>
-        <Menu.Divider/>
-        <Menu.Item key="logout">
-          <Icon type="logout"/>退出登录
-        </Menu.Item>
-      </Menu>
-    );
+    const { currentUser = {}, fetchingNotices, onNoticeVisibleChange, onNoticeClear } = this.props;
+    // const menu = (
+    //   <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
+    //     <Menu.Item disabled>
+    //       <Icon type="user" />个人中心
+    //     </Menu.Item>
+    //     <Menu.Item disabled>
+    //       <Icon type="setting" />设置
+    //     </Menu.Item>
+    //     <Menu.Item key="triggerError">
+    //       <Icon type="close-circle" />触发报错
+    //     </Menu.Item>
+    //     <Menu.Divider />
+    //     <Menu.Item key="logout">
+    //       <Icon type="logout" />退出登录
+    //     </Menu.Item>
+    //   </Menu>
+    // );
     const noticeData = this.getNoticeData();
     return (
       <div className={styles.header}>
         <div className={styles.logo}>
           <Link to="/">
-            <img src="//static.cloudwarehub.com/logo-min.png?x-oss-process=style/logo" />
+            <img src="//static.cloudwarehub.com/logo-min.png?x-oss-process=style/logo" alt="" />
             功夫编程
           </Link>
         </div>
@@ -84,10 +76,14 @@ export default class GlobalHeader extends PureComponent {
           // theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['']}
-          style={{lineHeight: '64px', float: 'left'}}
+          style={{ lineHeight: '64px', float: 'left' }}
         >
-          <Menu.Item key="1"><Link to='/library'>功夫图书馆</Link></Menu.Item>
-          <Menu.Item key="2"><Link to='/courses'>高校版</Link></Menu.Item>
+          <Menu.Item key="1">
+            <Link to="/library">功夫图书馆</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/courses">高校版</Link>
+          </Menu.Item>
         </Menu>
 
         <div className={styles.right}>
@@ -109,7 +105,7 @@ export default class GlobalHeader extends PureComponent {
               rel="noopener noreferrer"
               className={styles.action}
             >
-              <Icon type="question-circle-o"/>
+              <Icon type="question-circle-o" />
             </a>
           </Tooltip>
           {currentUser.name ? (
@@ -143,6 +139,7 @@ export default class GlobalHeader extends PureComponent {
                 emptyImage="https://gw.alipayobjects.com/zos/rmsportal/HsIsxMZiWKrNUavQUXqx.svg"
               />
             </NoticeIcon>
+          ) : (
             //   { currentUser.name ? (
             //   <Dropdown overlay={menu}>
             //   <span className={`${styles.action} ${styles.account}`}>
@@ -153,10 +150,12 @@ export default class GlobalHeader extends PureComponent {
             // ) : (
             //   <Spin size="small" style={{ marginLeft: 8 }}/>
             // )}
-          ) : (<span className={styles.action}>
-                  <Button type='primary' icon='github' size='large'>登录</Button>
-              </span>)
-          }
+            <span className={styles.action}>
+              <Button type="primary" icon="github" size="large">
+                登录
+              </Button>
+            </span>
+          )}
         </div>
       </div>
     );
