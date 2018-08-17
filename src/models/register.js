@@ -1,6 +1,6 @@
-import { fakeRegister } from '../services/api';
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
+import { fakeRegister } from '../services/api';
 
 export default {
   namespace: 'register',
@@ -25,13 +25,12 @@ export default {
 
   reducers: {
     registerHandle(state, { payload }) {
-      //setAuthority('user'); // 暂时没有写
-      //reloadAuthorized();
-      if (payload.status === 200){
-        notification.success({message: '注册成功', description: '赶快登录吧！'});
-      }
-      else{
-        notification.error({message: '邮箱已被注册'});
+      // setAuthority('user'); // 暂时没有写
+      // reloadAuthorized();
+      if (payload.status === 200) {
+        notification.success({ message: '注册成功', description: '赶快登录吧！' });
+      } else {
+        notification.error({ message: '邮箱已被注册' });
       }
       return {
         ...state,

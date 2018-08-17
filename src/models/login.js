@@ -1,9 +1,9 @@
 import { routerRedux } from 'dva/router';
+import { notification } from 'antd';
 import { fakeAccountLogin } from '../services/api';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
 import { setLocalData, removeLocalData } from '../utils/localData';
-import { notification } from 'antd';
 
 export default {
   namespace: 'login',
@@ -49,12 +49,11 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      //setAuthority(payload.currentAuthority); // login成功，暂时没有返回currentAuthority
-      if (payload.status === 200){
+      // setAuthority(payload.currentAuthority); // login成功，暂时没有返回currentAuthority
+      if (payload.status === 200) {
         setLocalData('token', payload.data); // 登录成功以后，保存token
-      }
-      else{
-        notification.error({message: '邮箱或密码错误'});
+      } else {
+        notification.error({ message: '邮箱或密码错误' });
       }
       return {
         ...state,
