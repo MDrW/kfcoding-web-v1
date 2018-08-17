@@ -6,7 +6,7 @@ import Login from 'components/Login';
 import styles from './Login.less';
 import { thirdPartyLogin } from '../../utils/githubLogin';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
+const { Tab, UserName, Password, Submit } = Login;
 
 @connect(({ login, loading }) => ({
   login,
@@ -24,12 +24,13 @@ export default class LoginPage extends Component {
 
   handleSubmit = (err, values) => {
     if (!err) {
-      this.props.dispatch({
+      const { dispatch } = this.props;
+      dispatch({
         type: 'login/login',
         payload: {
-          'authType': 'password',
-          'credenceName': values.userName,
-          'credenceCode': values.password
+          authType: 'password',
+          credenceName: values.userName,
+          credenceCode: values.password,
         },
       });
     }
@@ -47,7 +48,7 @@ export default class LoginPage extends Component {
 
   render() {
     const { login, submitting } = this.props;
-    const { type } = this.state;
+    const { type, autoLogin } = this.state;
     return (
       <div className={styles.main}>
         <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
@@ -60,7 +61,7 @@ export default class LoginPage extends Component {
             <Password name="password" placeholder="密码" />
           </Tab>
           <div>
-            <Checkbox checked={this.state.autoLogin} onChange={this.changeAutoLogin}>
+            <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
               自动登录
             </Checkbox>
             <a style={{ float: 'right' }} href="">

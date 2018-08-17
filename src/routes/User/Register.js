@@ -1,24 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { routerRedux, Link } from 'dva/router';
-import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd';
+import { Form, Input, Button } from 'antd';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const InputGroup = Input.Group;
-
-const passwordStatusMap = {
-  ok: <div className={styles.success}>强度：强</div>,
-  pass: <div className={styles.warning}>强度：中</div>,
-  poor: <div className={styles.error}>强度：太短</div>,
-};
-
-const passwordProgressMap = {
-  ok: 'success',
-  pass: 'normal',
-  poor: 'exception',
-};
 
 @connect(({ register, loading }) => ({
   register,
@@ -27,16 +13,17 @@ const passwordProgressMap = {
 @Form.create()
 export default class Register extends Component {
   state = {
-    count: 0,
     confirmDirty: false,
     visible: false,
     help: '',
   };
 
   componentWillReceiveProps(nextProps) {
-    const account = this.props.form.getFieldValue('mail');
+    const { form } = this.props;
+    const account = form.getFieldValue('mail');
     if (nextProps.register.status === 'ok') {
-      this.props.dispatch(
+      const { dispatch } = this.props;
+      dispatch(
         routerRedux.push({
           pathname: '/user/register-result',
           state: {
@@ -51,36 +38,21 @@ export default class Register extends Component {
     clearInterval(this.interval);
   }
 
-  onGetCaptcha = () => {
-    let count = 59;
-    this.setState({ count });
-    this.interval = setInterval(() => {
-      count -= 1;
-      this.setState({ count });
-      if (count === 0) {
-        clearInterval(this.interval);
-      }
-    }, 1000);
-  };
-
   handleSubmit = e => {
+    const { form } = this.props;
     e.preventDefault();
-    this.props.form.validateFields({ force: true }, (err, values) => {
+    form.validateFields({ force: true }, (err, values) => {
       if (!err) {
-        this.props.dispatch({
+        const { dispatch } = this.props;
+        dispatch({
           type: 'register/submit',
           payload: {
-            'email': values.mail,
-            'password': values.password
+            email: values.mail,
+            password: values.password,
           },
         });
       }
     });
-  };
-
-  handleConfirmBlur = e => {
-    const { value } = e.target;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
 
   checkConfirm = (rule, value, callback) => {
@@ -93,6 +65,7 @@ export default class Register extends Component {
   };
 
   checkPassword = (rule, value, callback) => {
+    const { visible, confirmDirty } = this.state;
     if (!value) {
       this.setState({
         help: '请输入密码！',
@@ -103,7 +76,7 @@ export default class Register extends Component {
       this.setState({
         help: '',
       });
-      if (!this.state.visible) {
+      if (!visible) {
         this.setState({
           visible: !!value,
         });
@@ -112,7 +85,7 @@ export default class Register extends Component {
         callback('error');
       } else {
         const { form } = this.props;
-        if (value && this.state.confirmDirty) {
+        if (value && confirmDirty) {
           form.validateFields(['confirm'], { force: true });
         }
         callback();
@@ -122,6 +95,7 @@ export default class Register extends Component {
 
   render() {
     const { form, submitting } = this.props;
+    const { help } = this.state;
     const { getFieldDecorator } = form;
     return (
       <div className={styles.main}>
@@ -141,7 +115,7 @@ export default class Register extends Component {
               ],
             })(<Input size="large" placeholder="邮箱" />)}
           </FormItem>
-          <FormItem help={this.state.help}>
+          <FormItem help={help}>
             {getFieldDecorator('password', {
               rules: [
                 {
@@ -161,7 +135,9 @@ export default class Register extends Component {
                   validator: this.checkConfirm,
                 },
               ],
-            })(<Input size="large" type="password" placeholder="确认密码（暂不提供密码找回服务）" />)}
+            })(
+              <Input size="large" type="password" placeholder="确认密码（暂不提供密码找回服务）" />
+            )}
           </FormItem>
           <FormItem>
             <Button
