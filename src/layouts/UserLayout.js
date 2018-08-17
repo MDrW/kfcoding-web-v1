@@ -6,7 +6,6 @@ import styles from './UserLayout.less';
 import logo from '../assets/logo-min.png';
 import { getRoutes } from '../utils/utils';
 
-
 class UserLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
@@ -42,7 +41,7 @@ class UserLayout extends React.PureComponent {
                   exact={item.exact}
                 />
               ))}
-              <Redirect from="/user" to='/user/login' />
+              <Redirect from="/user" to="/user/login" />
             </Switch>
           </div>
           <GlobalFooter />
