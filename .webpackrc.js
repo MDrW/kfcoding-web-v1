@@ -19,6 +19,10 @@ export default {
     bizcharts: 'BizCharts',
     rollbar: 'rollbar',
   },
+  define: {
+    DEFAULT_PAGECURR: 1,
+    DEFAULT_SIZEOFPAGE: 10,
+  },
   alias: {
     components: path.resolve(__dirname, 'src/components/'),
   },

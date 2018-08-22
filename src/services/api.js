@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { stringify } from 'qs';
 import request from '../utils/request';
 
@@ -76,4 +77,16 @@ export async function fakeRegister(params) {
 
 export async function queryNotices() {
   return request('/api/notices');
+}
+
+export async function getDefultBookList() {
+  return request('/api/basic/books/page');
+}
+
+export async function getBookList(params) {
+  return request(`/api/basic/books/page?${stringify(params)}`);
+}
+
+export async function getTags() {
+  return request('/api/basic/books/tags');
 }

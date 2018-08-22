@@ -73,7 +73,6 @@ export default class GlobalHeader extends PureComponent {
           </Link>
         </div>
         <Menu
-          // theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['']}
           style={{ lineHeight: '64px', float: 'left' }}

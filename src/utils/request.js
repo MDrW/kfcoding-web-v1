@@ -20,7 +20,6 @@ const codeMessage = {
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
 };
-
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -69,30 +68,33 @@ export default function request(url, options) {
     }
   }
 
-  return fetch(url, newOptions).then(response => {
-    return response
-      .json()
-      .then(checkStatus)
-      .catch(e => {
-        const { dispatch } = store;
-        const status = e.name;
-        if (status === 401) {
-          dispatch({
-            type: 'login/logout',
-          });
-          return;
-        }
-        if (status === 403) {
-          dispatch(routerRedux.push('/exception/403'));
-          return;
-        }
-        // if (status <= 504 && status >= 500) {
-        //   dispatch(routerRedux.push('/exception/500'));
-        //   return;
-        // }
-        if (status >= 404 && status < 422) {
-          dispatch(routerRedux.push('/exception/404'));
-        }
-      });
-  });
+  return fetch(url, newOptions)
+    .then(checkStatus)
+    .then(response => {
+      if (newOptions.method === 'DELETE' || response.status === 204) {
+        return response.text();
+      }
+      return response.json();
+    })
+    .catch(e => {
+      const { dispatch } = store;
+      const status = e.name;
+      if (status === 401) {
+        dispatch({
+          type: 'login/logout',
+        });
+        return;
+      }
+      if (status === 403) {
+        dispatch(routerRedux.push('/exception/403'));
+        return;
+      }
+      // if (status <= 504 && status >= 500) {
+      //   dispatch(routerRedux.push('/exception/500'));
+      //   return;
+      // }
+      if (status >= 404 && status < 422) {
+        dispatch(routerRedux.push('/exception/404'));
+      }
+    });
 }

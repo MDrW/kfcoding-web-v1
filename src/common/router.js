@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { createElement } from 'react';
 import { Spin } from 'antd';
 import pathToRegexp from 'path-to-regexp';
@@ -81,9 +82,36 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
     },
     '/': {
-      component: dynamicWrapper(app, [], () => import('../routes/Home/index')),
+      component: dynamicWrapper(app, ['bookList'], () => import('../routes/Home/index')),
     },
-
+    '/library': {
+      component: dynamicWrapper(app, ['menuList'], () => import('../layouts/LibraryLayout')),
+    },
+    '/library/allBooks': {
+      component: dynamicWrapper(app, ['bookList', 'menuList'], () =>
+        import('../routes/Library/index')
+      ),
+    },
+    '/library/dataScience': {
+      component: dynamicWrapper(app, ['bookList', 'menuList'], () =>
+        import('../routes/Library/index')
+      ),
+    },
+    '/library/cloudComputing': {
+      component: dynamicWrapper(app, ['bookList', 'menuList'], () =>
+        import('../routes/Library/index')
+      ),
+    },
+    '/library/operatingSystem': {
+      component: dynamicWrapper(app, ['bookList', 'menuList'], () =>
+        import('../routes/Library/index')
+      ),
+    },
+    '/library/machineLearning': {
+      component: dynamicWrapper(app, ['bookList', 'menuList'], () =>
+        import('../routes/Library/index')
+      ),
+    },
   };
 
   // Route configuration data

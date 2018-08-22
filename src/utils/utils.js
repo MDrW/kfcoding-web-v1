@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import moment from 'moment';
 import { parse, stringify } from 'qs';
 
@@ -75,15 +76,15 @@ function accMul(arg1, arg2) {
   let m = 0;
   const s1 = arg1.toString();
   const s2 = arg2.toString();
-  m += s1.split(".").length > 1 ? s1.split(".")[1].length : 0;
-  m += s2.split(".").length > 1 ? s2.split(".")[1].length : 0;
-  return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / 10 ** m;
+  m += s1.split('.').length > 1 ? s1.split('.')[1].length : 0;
+  m += s2.split('.').length > 1 ? s2.split('.')[1].length : 0;
+  return (Number(s1.replace('.', '')) * Number(s2.replace('.', ''))) / 10 ** m;
 }
 
 export function digitUppercase(n) {
   const fraction = ['角', '分'];
   const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
-  const unit = [['元', '万', '亿'],['', '拾', '佰', '仟', '万']];
+  const unit = [['元', '万', '亿'], ['', '拾', '佰', '仟', '万']];
   let num = Math.abs(n);
   let s = '';
   fraction.forEach((item, index) => {
@@ -162,7 +163,6 @@ export function getRoutes(path, routerData) {
   return renderRoutes;
 }
 
-
 export function getPageQuery() {
   return parse(window.location.href.split('?')[1]);
 }
@@ -180,4 +180,29 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(
 
 export function isUrl(path) {
   return reg.test(path);
+}
+
+export function getBookType(path) {
+  switch (path) {
+    case '/library/allBooks':
+      return '';
+    case '/library/dataScience':
+      return 'dataScience';
+    case '/library/cloudComputing':
+      return 'cloudComputing';
+    case '/library/operatingSystem':
+      return 'operatingSystem';
+    case '/library/machineLearning':
+      return 'machineLearning';
+    default:
+      return '';
+  }
+}
+
+export function getConditionResult(match) {
+  const stringBookType = getBookType(match);
+  const conditionResult = {
+    bookTag: stringBookType,
+  };
+  return conditionResult;
 }
