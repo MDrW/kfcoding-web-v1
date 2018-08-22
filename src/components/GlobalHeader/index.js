@@ -78,10 +78,14 @@ export default class GlobalHeader extends PureComponent {
           style={{ lineHeight: '64px', float: 'left' }}
         >
           <Menu.Item key="1">
-            <Link to="/library">功夫图书馆</Link>
+            <Link to="/library/allBooks">
+              <strong>功夫图书馆</strong>
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/courses">高校版</Link>
+            <Link to="/courses">
+              <strong>高校版</strong>
+            </Link>
           </Menu.Item>
         </Menu>
 
